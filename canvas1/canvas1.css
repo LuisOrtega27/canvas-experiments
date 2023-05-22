@@ -1,0 +1,16 @@
+.canvas-container {
+    position: relative;
+    margin-top: 100px;
+}
+
+.canvas-container > canvas {
+    background: #fff;
+    border: solid 2px #28e ;
+}
+#initBtn{
+    bottom: -40px;
+    left: 50%;
+    position: absolute;
+    padding: 10px 20px;
+    transform: translateX(-50%);
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Experiments</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="./index.js" defer></script>
+
+
+    <link rel="stylesheet" href="./canvas0/canvas0.css">
+    <script src="./canvas0/canvas0.js" defer></script>
+
+    <link rel="stylesheet" href="./canvas1/canvas1.css">
+    <script src="./canvas1/canvas1.js" defer></script>
+    
+    <link rel="stylesheet" href="./canvas2/canvas2.css">
+    <script src="./canvas2/canvas2.js" defer></script>
+    
+
+    
+</head>
+<body>
+    
+    <h1>Paint</h1>
+    <div class="container">
+
+        <div class="lienzo-container">
+
+            <canvas id="lienzo" height="350" width="700">
+                error canvas not displaying
+            </canvas>
+            
+        </div>
+
+        <div class="controles">
+
+            <div class="input-group">
+                <input type="color" name="color" id="color">
+                <label for="color">Color</label>
+            </div>
+            <div class="input-group">
+                <input type="range" name="grosor" id="grodor" min="1" max="10" value="1">
+                <label for="grolor" id="grosor-label">Grosor</label>
+            </div>
+
+            <div class="input-group">
+                <input type="number" name="multiline" id="multiline" min="1" max="5" value="1" pattern="\d{1}">
+                <label for="multiline" id="multiline-label">Linea multiple</label>
+            </div>
+
+            <div class="input-group">
+                <button>Borrar</button>
+                <label for="multiline">Borrar lienzo</label>
+            </div>
+            
+            <div class="input-group">
+                <button>Guardar</button>
+                <label for="multiline">Guardar lienzo</label>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="canvas-container container1">
+        <h1>Basic animation</h1>
+        <canvas id="canvas1" class="canvas"></canvas>
+        <input type="button" id="initBtn" value="start">
+    </div>
+
+    <div class="canvas-container container2">
+        <h1>Snake Game (try 1)</h1>
+        <canvas id="canvas2" class="canvas"></canvas>
+        <input type="type" id="snakeInput">
+    </div>
+
+
+    
+</body>
+</html>
