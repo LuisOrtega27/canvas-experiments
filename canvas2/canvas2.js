@@ -31,6 +31,12 @@ let gameConfig = {
 	gameScore: 2,
 };
 
+const createBox = (x, y) => {
+	ctx.fillStyle = '#e22';
+
+	ctx.fillRect(x, y, 10, 10);
+};
+
 /******************** LEVEL UP //////////////////////// */
 
 const verifyLevelUp = () => {
@@ -66,8 +72,21 @@ const createFoodSpawnArea = () => {
 		}
 	}
 
-	if (randomPosX > canvas2.clientWidth) randomPosX - 20;
-	if (randomPosY > canvas2.clientHeight) randomPosY - 20;
+	if (randomPosX > canvas2.clientWidth) {
+		randomPosX -= 10;
+		console.log('redirect X');
+	}
+
+	if (randomPosY >= canvas2.clientHeight) {
+		randomPosY -= 10;
+		console.log('redirect Y');
+	}
+
+	gameConfig.snakeBodyPositions.forEach((pos) => {
+		if (pos.x === randomPosX && pos.y === randomPosY) {
+			return createFoodSpawnArea();
+		}
+	});
 
 	if (gameConfig.foodSpawnArea === null)
 		gameConfig.foodSpawnArea = { x: randomPosX, y: randomPosY };
@@ -143,6 +162,13 @@ const changeSnakeVector = () => {
 	if (gameConfig.currentSnakeKey === 'l') {
 		gameConfig.snakeVector.x -= 10;
 	}
+};
+
+const changeSnakeColor = () => {
+	let rand1 = Math.floor(Math.random() * 255);
+	let rand2 = Math.floor(Math.random() * 255);
+	let rand3 = Math.floor(Math.random() * 255);
+	gameConfig.snakeColor = `rgb(${rand1}, ${rand2}, ${rand3})`;
 };
 
 const moveSnake = () => {
@@ -221,6 +247,8 @@ window.addEventListener('keydown', (eve) => {
 	// Confirmar la tecla correcta
 	for (let code in gameConfig.snakeKeys) {
 		if (gameConfig.snakeKeys[code] === eve.code) {
+			changeSnakeColor();
+
 			startGame(code);
 
 			// console.log(gameConfig.snakeKeys[code] === eve.code);
