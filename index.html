@@ -76,12 +76,33 @@
         <canvas id="canvas2" class="canvas"></canvas>
         <input type="type" id="snakeInput">
 
-        <div class="snakeControls">
-            <h2>score: <span id="score">0</span> </h2>
+        <div class="instructions">
+            <h2>Instrucciones</h2>
+            <ul>
+                <li><b>P:</b> Pausa</li>
+                <li><b>R:</b> Reiniciar juego</li>
+                <li>Pues se juega con las flechas...</li>
+                <li>Disfruta el juego</li>
+            </ul>
+        </div>
+        
+        <div id="snakeControls">
+            <h2>score: <span id="scoreDisplayer">0</span> </h2>
+
+            <input type="checkbox" id="setAutoColor" value="autoColor">
+            <label for="setAutoColor">Color automatico</label>
+        
+            <input type="radio" id="colorOp" name="autoColor" class="autoColor" value="m">
+            <label for="colorOp1">Opcion 1</label>
+
+            <input type="radio" id="colorOp" name="autoColor" class="autoColor" value="r">
+            <label for="colorOp2">Opcion 2</label>
 
             <input type="color" id="snakeColorInput">
+            <label for="snakeColorInput">Color</label>
 
-            <input type="range" min="5" max="500" step="5" value="50">
+            <input type="range" id="snakeSpeedInput" min="5" max="500" step="5" value="50">
+            <label for="snakeSpeedInput">Velocidad <span id="speedLabel">50</span></label>
             
         </div>
         

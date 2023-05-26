@@ -1,7 +1,81 @@
 #snakeInput{
     position: absolute;
-
     opacity: 0;
 
-    color: #ee2;
+    pointer-events: none;
+}
+
+.instructions{
+    position: absolute;
+    left: 0;
+    top: 60%;
+    color: #fff;
+    padding: 20px;
+
+    background: #0005;
+    transform: translateX(-102%) translateY(-60%);
+}
+.instructions h2{
+ text-align: center;
+ margin-bottom: 20px;
+}
+.instructions ul li{
+    /* padding-left: 20px; */
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+#snakeControls{
+    position: absolute;
+    top: 60%;
+    right: 0%;
+    transform: translateX(102%) translateY(-60%);
+    color: #fff;
+    background: #0005;
+    padding: 20px;
+}
+
+#snakeControls h2{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#snakeControls input{
+    display: block;
+}
+#snakeControls label{
+    width: 100%;
+    display: inline-block;
+    transform: translateY(-100%) translateX(20%);
+}
+
+/*******************INPUTS///////////////////////////*/
+
+/*******************Position of the label*/
+
+#snakeControls > input[type='color'] + label, 
+#snakeControls > input[type='range'] + label{
+    transform: translateY(0) translateX(0);
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+#snakeControls > input[type='radio'],
+#snakeControls > input[type='radio'] + label{
+    opacity: 0.5;
+    pointer-events: none;
+}
+#setAutoColor:checked ~ input[type='radio'],
+#setAutoColor:checked ~ input[type='radio'] + label{
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+
+
+#setAutoColor:checked ~ input[type='color'],
+#setAutoColor:checked ~ input[type='color'] + label{
+    opacity: 0.5;
+    pointer-events: none;
 }

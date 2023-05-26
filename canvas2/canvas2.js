@@ -1,22 +1,54 @@
 'use strict';
 
 const canvas2 = document.querySelector('#canvas2');
+
+const canvasCenter = {
+	x: canvas2.clientWidth / 2,
+	y: canvas2.clientHeight / 2,
+};
+
 const snakeInput = document.querySelector('#snakeInput');
-
-canvas2.addEventListener('click', () => {
-	snakeInput.focus();
-});
-
 const ctx = canvas2.getContext('2d');
+
+// controls
+const scoreDisplayer = document.querySelector('#scoreDisplayer');
+
+const setAutoColor = document.querySelector('#setAutoColor');
+
+const autoColorOp = document.querySelectorAll('.autoColor');
+
+const snakeColorInput = document.querySelector('#snakeColorInput');
+
+const snakeSpeedInput = document.querySelector('#snakeSpeedInput');
+const speedLabel = document.querySelector('#speedLabel');
+
+// establish a central spawn for the snake
+const findCanvasCenter = () => {
+	if (canvasCenter.x % 10 != 0) {
+		for (let i = 0; i < 10; i++) {
+			canvasCenter.x++;
+			if (canvasCenter.x % 10 === 0) break;
+		}
+	}
+
+	if (canvasCenter.y % 10 != 0) {
+		for (let i = 0; i < 10; i++) {
+			canvasCenter.y++;
+			if (canvasCenter.y % 10 === 0) break;
+		}
+	}
+};
+findCanvasCenter();
 
 let gameConfig = {
 	gameLoop: null,
 	gameSpeed: 50,
 	gridDimentions: 10,
+	autoColorOp: null,
 	snakeColor: '#000',
 	snakeVector: {
-		x: 0,
-		y: 0,
+		x: canvasCenter.x,
+		y: canvasCenter.y,
 	},
 	snakeKeys: {
 		u: 'ArrowUp',
@@ -31,9 +63,32 @@ let gameConfig = {
 	gameScore: 2,
 };
 
-const createBox = (x, y) => {
-	ctx.fillStyle = '#e22';
+snakeSpeedInput.addEventListener('input', () => {
+	speedLabel.textContent = snakeSpeedInput.value;
+	gameConfig.gameSpeed = snakeSpeedInput.value;
 
+	pauseGame();
+
+	startGame(gameConfig.currentSnakeKey);
+});
+
+snakeColorInput.addEventListener('change', () => {
+	gameConfig.snakeColor = snakeColorInput.value;
+});
+
+autoColorOp.forEach((input) => {
+	input.addEventListener('input', () => {
+		gameConfig.autoColorOp = input.value;
+	});
+});
+
+// Esto es solo para que no se haga scroll con las flechas.
+canvas2.addEventListener('click', () => {
+	snakeInput.focus();
+});
+
+const emergencyBox = (x, y) => {
+	ctx.fillStyle = '#e22';
 	ctx.fillRect(x, y, 10, 10);
 };
 
@@ -45,6 +100,9 @@ const verifyLevelUp = () => {
 		gameConfig.snakeVector.y === gameConfig.foodSpawnArea.y
 	) {
 		gameConfig.gameScore++;
+
+		scoreDisplayer.textContent = gameConfig.gameScore - 2;
+
 		gameConfig.foodSpawnArea = null;
 		createFood();
 	}
@@ -74,12 +132,10 @@ const createFoodSpawnArea = () => {
 
 	if (randomPosX > canvas2.clientWidth) {
 		randomPosX -= 10;
-		console.log('redirect X');
 	}
 
 	if (randomPosY >= canvas2.clientHeight) {
 		randomPosY -= 10;
-		console.log('redirect Y');
 	}
 
 	gameConfig.snakeBodyPositions.forEach((pos) => {
@@ -172,6 +228,11 @@ const changeSnakeColor = () => {
 };
 
 const moveSnake = () => {
+	setAutoColor.checked &&
+		// random color for the snake every box
+		gameConfig.autoColorOp === 'r' &&
+		changeSnakeColor();
+
 	// change the direction of the snake.
 	changeSnakeVector();
 
@@ -209,7 +270,32 @@ const moveSnake = () => {
 	createFoodSpawnArea();
 };
 
-/******************** START AND PAUSE //////////////////////// */
+/******************** START, PAUSE AND RESTART //////////////////////// */
+const restartGame = () => {
+	ctx.fillStyle = '#fff';
+	ctx.clearRect(0, 0, canvas2.clientWidth, canvas2.clientHeight);
+
+	ctx.fillStyle = '#28e';
+	ctx.fillRect(
+		gameConfig.foodSpawnArea.x,
+		gameConfig.foodSpawnArea.y,
+		gameConfig.gridDimentions,
+		gameConfig.gridDimentions
+	);
+
+	gameConfig.snakeBodyPositions = gameConfig.snakeBodyPositions.slice(
+		-2,
+		-1
+	);
+
+	gameConfig.gameScore = 2;
+	scoreDisplayer.textContent = gameConfig.gameScore - 2;
+	gameConfig.snakeVector.x = canvasCenter.x;
+	gameConfig.snakeVector.y = canvasCenter.y;
+
+	pauseGame();
+	startGame(gameConfig.currentSnakeKey);
+};
 
 const pauseGame = () => {
 	clearInterval(gameConfig.gameLoop);
@@ -242,12 +328,17 @@ window.addEventListener('keydown', (eve) => {
     ArrowLeft
     */
 
-	if (eve.code === 'KeyP') return pauseGame();
+	if (eve.code === 'Escape') return pauseGame();
+
+	if (eve.code === 'KeyR') return restartGame();
 
 	// Confirmar la tecla correcta
 	for (let code in gameConfig.snakeKeys) {
 		if (gameConfig.snakeKeys[code] === eve.code) {
-			changeSnakeColor();
+			setAutoColor.checked &&
+				// random color for the snake every time it changes directions
+				gameConfig.autoColorOp === 'm' &&
+				changeSnakeColor();
 
 			startGame(code);
 
