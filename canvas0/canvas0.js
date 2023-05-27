@@ -33,7 +33,8 @@ lineWidthInput.addEventListener(
 );
 
 clearLienzo.addEventListener('click', () => {
-	context.clearRect(0, 0, lienzo.clientWidth, lienzo.clientHeight);
+	context.fillStyle = '#fff';
+	context.fillRect(0, 0, lienzo.clientWidth, lienzo.clientHeight);
 });
 
 let lineWidth = 1;
