@@ -1,16 +1,6 @@
-.container{
-    border: solid 2px #28e ;
-}
-.lienzo-container{
-    border-bottom: solid 2px #28e;
-}
-#lienzo{
-    background: #fff;
-}
-
 .controles{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 5px;
     gap: 10px;
     height: 40px;

@@ -27,10 +27,10 @@
     <h1>Paint</h1>
     <div class="container">
 
-        <div class="lienzo-container">
+        <div class="canvas-container" id="canvas-container1">
 
-            <canvas id="lienzo" height="350" width="700">
-                error canvas not displaying
+            <canvas id="lienzo" >
+                Error, canvas not displaying
             </canvas>
             
         </div>
@@ -38,26 +38,26 @@
         <div class="controles">
 
             <div class="input-group">
-                <input type="color" name="color" id="color">
+                <input type="color" id="colorInput">
                 <label for="color">Color</label>
             </div>
             <div class="input-group">
-                <input type="range" name="grosor" id="grodor" min="1" max="10" value="1">
+                <input type="range" id="lineWidthInput" min="1" max="10" value="2">
                 <label for="grolor" id="grosor-label">Grosor</label>
             </div>
 
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <input type="number" name="multiline" id="multiline" min="1" max="5" value="1" pattern="\d{1}">
                 <label for="multiline" id="multiline-label">Linea multiple</label>
-            </div>
+            </div> -->
 
             <div class="input-group">
-                <button>Borrar</button>
+                <button id="clearLienzo">Borrar</button>
                 <label for="multiline">Borrar lienzo</label>
             </div>
             
             <div class="input-group">
-                <button>Guardar</button>
+                <button id="descargarLienzo">Guardar</button>
                 <label for="multiline">Guardar lienzo</label>
             </div>
 
@@ -79,7 +79,7 @@
         <div class="instructions">
             <h2>Instrucciones</h2>
             <ul>
-                <li><b>P:</b> Pausa</li>
+                <li><b>ESCAPE:</b> Pausa</li>
                 <li><b>R:</b> Reiniciar juego</li>
                 <li>Pues se juega con las flechas...</li>
                 <li>Disfruta el juego</li>
